@@ -35,6 +35,8 @@ def parse_config(argv=None):
                                       description=description,
                                       prog='SMPLifyX')
 
+    parser.add_argument('--input_media',
+                        help='Image path')
     parser.add_argument('--data_folder',
                         default=os.getcwd(),
                         help='The directory that contains the data.')
@@ -62,7 +64,7 @@ def parse_config(argv=None):
                         ' result')
     parser.add_argument('--use_cuda',
                         type=lambda arg: arg.lower() == 'true',
-                        default=True,
+                        default=False,
                         help='Use CUDA for the computations')
     parser.add_argument('--dataset', default='hands_cmu_gt', type=str,
                         help='The name of the dataset that will be used')
