@@ -44,7 +44,7 @@ from optimizers import optim_factory
 
 import fitting
 from human_body_prior.tools.model_loader import load_vposer
-
+from mesh_viewer_background import create_raymond_lights
 
 def fit_single_frame(img,
                      keypoints,
@@ -302,8 +302,10 @@ def fit_single_frame(img,
                                **kwargs)
     loss = loss.to(device=device)
 
+    print("tipe img")
+    print(type(img))
     with fitting.FittingMonitor(
-            batch_size=batch_size, visualize=visualize, **kwargs) as monitor:
+            batch_size=batch_size, visualize=visualize, background_image = img, camera = camera, **kwargs) as monitor:
 
         img = torch.tensor(img, dtype=dtype)
 
@@ -357,7 +359,6 @@ def fit_single_frame(img,
                                                 use_vposer=use_vposer,
                                                 pose_embedding=pose_embedding,
                                                 vposer=vposer)
-
         if interactive:
             if use_cuda and torch.cuda.is_available():
                 torch.cuda.synchronize()
@@ -535,8 +536,8 @@ def fit_single_frame(img,
             cx=camera_center[0], cy=camera_center[1])
         scene.add(camera, pose=camera_pose)
 
-        # Get the lights from the viewer
-        light_nodes = monitor.mv.viewer._create_raymond_lights()
+        # # Get the lights from the viewer
+        light_nodes = create_raymond_lights()
         for node in light_nodes:
             scene.add_node(node)
 

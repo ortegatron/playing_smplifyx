@@ -56,6 +56,8 @@ torch.backends.cudnn.enabled = False
 import easy_configuration
 import openpose_wrapper
 
+import mesh_viewer_background
+
 def get_img(img_path):
     img = cv2.imread(img_path).astype(np.float32)[:, :, ::-1] / 255.0
     return img
@@ -106,18 +108,17 @@ def get_keypoints(image_np, use_hands=True, use_face=True,
 def main(**args):
     input_media = args.pop('input_media')
     config = easy_configuration.configure(**args)
-
     # supongo que es una imagen
     img_np = cv2.imread(input_media)
     img = get_img(input_media)
     keypoints = get_keypoints(img_np)
 
+    mesh_viewer_background.start_render(img.shape[1],img.shape[0])
     for person_id in range(keypoints.shape[0]):
         # assumes neutral gender.
         body_model = config['neutral_model']
 
         out_img_fn = 'temp.png'
-        print(type(img))
         fit_single_frame(img, keypoints[[person_id]],
                          body_model=body_model,
                          camera=config['camera'],
@@ -134,11 +135,11 @@ def main(**args):
         # fit_single_frame saves partial detection result to 'temp.png',
         # here we load that image again so as to render the next detection on top of that image again
         img = cv2.imread(out_img_fn).astype(np.float32)[:, :, ::-1] / 255.0
-
     # show the frame to our screen
     cv2.imshow("Frame", img)
     # cv2.imshow("Frame", mask)
     key = cv2.waitKey(0)
+    mesh_viewer_background.finish_render()
 if __name__ == "__main__":
     args = parse_config()
     main(**args)

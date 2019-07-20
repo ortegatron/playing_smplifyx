@@ -29,7 +29,8 @@ import numpy as np
 import torch
 import torch.nn as nn
 
-from mesh_viewer import MeshViewer
+# from mesh_viewer import MeshViewer
+from mesh_viewer_background import MeshBackgroundViewer
 import utils
 
 
@@ -115,6 +116,8 @@ class FittingMonitor(object):
                  maxiters=100, ftol=2e-09, gtol=1e-05,
                  body_color=(1.0, 1.0, 0.9, 1.0),
                  model_type='smpl',
+                 background_image = None,
+                 camera = None,
                  **kwargs):
         super(FittingMonitor, self).__init__()
 
@@ -126,11 +129,13 @@ class FittingMonitor(object):
         self.summary_steps = summary_steps
         self.body_color = body_color
         self.model_type = model_type
+        self.background_image = background_image
+        self.camera = camera
 
     def __enter__(self):
         self.steps = 0
         if self.visualize:
-            self.mv = MeshViewer(body_color=self.body_color)
+            self.mv = MeshBackgroundViewer(body_color=self.body_color, background_image = self.background_image, camera = self.camera)
         return self
 
     def __exit__(self, exception_type, exception_value, traceback):
