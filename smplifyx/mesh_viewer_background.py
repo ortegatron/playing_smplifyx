@@ -149,7 +149,8 @@ class MeshBackgroundViewer(object):
         r = pyrender.OffscreenRenderer(viewport_width=width,
                                        viewport_height=height,
                                         point_size=1.0)
-        color, _ = r.render(self.scene)
+        flags = pyrender.RenderFlags.ALL_WIREFRAME 
+        color, _ = r.render(self.scene, flags)
         color = color.astype(np.uint8)
 
         valid_mask = (color[:, :] != [0.,0.,0.])[:, :]
