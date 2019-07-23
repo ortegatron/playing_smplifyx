@@ -4,7 +4,7 @@
     <img src="construction.gif", width="600">
 </p>
 
-This is a fork of the [[SMPLify-X repository](https://github.com/vchoutas/smplify-x)]. It only made to share some code modifications I've made to that code, all the credits go to the original authors.
+This is a fork of the [[SMPLify-X repository](https://github.com/vchoutas/smplify-x)]. I only made it to share some code modifications I've made to that code, all the credits go to the original authors.
 
 Read also the medium post:
 https://medium.com/@apofeniaco/p3d-body-detection-with-smplify-x-ced6c38871df
