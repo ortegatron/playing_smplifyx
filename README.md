@@ -6,6 +6,9 @@
 
 This is a fork of the [[SMPLify-X repository](https://github.com/vchoutas/smplify-x)]. It only made to share some code modifications I've made to that code, all the credits go to the original authors.
 
+Read also the medium post:
+https://medium.com/@apofeniaco/p3d-body-detection-with-smplify-x-ced6c38871df
+
 SMPLify-X can be quite tricky to understand, as it has lots of different configurations and long pieces of code. The modifications on this repo aim towards letting run SMPLify-X with zero configuration and providing better insights on how does it work.
 
   * Separates configuration parsing from running code to keep it more easy to read
